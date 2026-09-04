@@ -53,7 +53,7 @@ h1{font-size:clamp(27px,4.2vw,40px); line-height:1.2; letter-spacing:-.02em; mar
 .tb-meta div:nth-last-child(-n+2){border-bottom:0}
 
 /* 요약 */
-.tally{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-top:22px}
+.tally{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px}
 @media (max-width:820px){.tally{grid-template-columns:repeat(2,1fr)}}
 .t-cell{background:var(--surface); border:1px solid var(--hair); border-radius:3px; padding:16px 18px}
 .t-cell .k{font-family:var(--mono); font-size:10.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--muted); font-weight:500}
@@ -607,48 +607,7 @@ table.big th{word-break:keep-all}
   <div class="t-cell"><span class="k">품목</span><p class="v">6</p><p class="n">1F 3 &middot; 2F 3</p></div>
   <div class="t-cell"><span class="k">수량</span><p class="v">13</p><p class="n">SET</p></div>
   <div class="t-cell"><span class="k">수량 대조</span><p class="v">12+1</p><p class="n">FS_02는 목록 밖</p></div>
-  <div class="t-cell"><span class="k">설계 변경</span><p class="v">3</p><p class="n">확인 남은 것 1</p></div>
 </div>
-
-<section>
-  <p class="slabel">먼저 볼 것</p>
-  <h2>배치도보다 입고 목록이 최신입니다</h2>
-  <p class="lede">설계를 진행하며 치수가 바뀐 품목이 있습니다. <b>기준은 입고 목록</b>이고, 가구현황(260818)과 도면 상세는 그 이전 값입니다. 확인은 <span class="mono">도면 내리기</span> 폴더의 <b>설계 전 3D 원본(STEP)과 Make2D 도면</b>까지 대조했습니다.</p>
-
-  <div class="flags">
-    <div class="flag" style="border-left-color:var(--f2); background:var(--f2-soft)">
-      <div class="fh"><span class="fid" style="color:var(--f2)">변경 확인</span><span class="ft">높이 20mm 인하가 세 품목에 똑같이 걸려 있습니다</span></div>
-      <p class="fb">FS_26 &middot; FS_28-1 &middot; FS_28-2가 전부 <span class="mono">1,450 &rarr; 1,430</span> 입니다. 세 품목에 같은 값이 일관되게 적용된 것이라 개별 오기가 아니라 <b>한 번의 설계 변경</b>으로 읽힙니다. 이 문서는 <b>1,430을 기준</b>으로 씁니다.</p>
-    </div>
-
-    <div class="flag">
-      <div class="fh"><span class="fid">배치 영향</span><span class="ft">FS_28-2가 1,427mm 짧아졌습니다 &mdash; 배치도 그림과 실물 길이가 다릅니다</span></div>
-      <p class="fb">개정으로 <span class="mono">3,705 &rarr; 2,278</span> 이 되어 <b>FS_28-1과 같은 길이</b>가 됐습니다. 설계 전 3D를 보면 두 품목은 <b>같은 모듈의 5칸형과 3칸형</b>입니다 &mdash; FS-28-2는 기둥 6개 5칸, FS-28-1은 기둥 4개 3칸. 칸당 폭이 같고 연 내부 폭 680mm와도 맞습니다.</p>
-      <p class="fb"><b>현장에서 생기는 일:</b> 어린이 문학 &middot; 어린이 키워드의 세로 서가가 도면 그림보다 <b>약 1.4m 짧게</b> 끝납니다. 그 끝에 붙는 가로 서가(<span class="mono">7</span>번 &middot; <span class="mono">10</span>번)의 시작점이 그만큼 올라오므로 <b>맞물리는 자리를 도면 치수가 아니라 실물로 잡아야 합니다.</b></p>
-      <p class="fb">5칸이 3칸으로 줄면 FS_28-1과 길이 &middot; 깊이 &middot; 높이가 모두 같아지는데 품번은 P1 / P2로 따로 유지됩니다. <b>정말 3칸인지 한 번만 확인해 주세요.</b></p>
-      <div class="cmp"><table>
-        <tr><th></th><th>입고 목록 (기준)</th><th>가구현황 260818</th><th>설계 전 3D</th></tr>
-        <tr><th>FS_28-1</th><td>2278*540*1430</td><td>2,277*540*1,450</td><td>2,267 (3칸)</td></tr>
-        <tr><th>FS_28-2</th><td>2278*540*1430</td><td>3,705*540*1,450</td><td class="diff">3,661 (5칸)</td></tr>
-      </table></div>
-    </div>
-
-    <div class="flag" style="border-left-color:var(--muted)">
-      <div class="fh"><span class="fid" style="color:var(--muted)">변경</span><span class="ft">FS_26 &mdash; 깊이 540 &middot; 양면으로 정리</span></div>
-      <p class="fb">도면 상세(50쪽)에 <span class="mono">3,054*350*1,440</span> 에 &ldquo;단면 4단&rdquo;으로 적혀 있던 것이, 가구현황과 입고 목록 모두 <b>깊이 540 &middot; 양면</b>으로 바뀌었습니다. 길이도 <span class="mono">3,054 &rarr; 2,990</span>. <b>상세도 50쪽은 보지 마세요</b> &mdash; 두 단계 전 값입니다.</p>
-    </div>
-
-    <div class="flag" style="border-left-color:var(--f2); background:var(--f2-soft)">
-      <div class="fh"><span class="fid" style="color:var(--f2)">해결</span><span class="ft">FS_06 &mdash; 깊이 500 &middot; 높이 1,500 으로 확정</span></div>
-      <p class="fb">입고 목록의 <span class="mono">3300X1500 H500</span> 은 <b>치수 변경이 아니라 표기 순서</b>였습니다. <span class="mono">FS-06.stp</span> 의 수직 방향 실측이 <b>정확히 1,500.0</b>이고, 도면 우측면도 깊이가 높이보다 훨씬 짧은 형태입니다. <b>깊이 500이라 창가 통로를 먹지 않습니다.</b></p>
-    </div>
-
-    <div class="flag" style="border-left-color:var(--muted); background:var(--sunk)">
-      <div class="fh"><span class="fid" style="color:var(--f2)">해결</span><span class="ft">FS_06 색상 배정이 확정됐습니다</span></div>
-      <p class="fb"><b>3번(사선) = 오렌지 HR-OE0619-S9 &middot; 4번(하단 수평) = 블루 H-BL0003-S9</b> 입니다. 배치도 본문에는 두 곳 다 &ldquo;FS-06&rdquo;으로만 적혀 있지만, <b>상세 18쪽 왼쪽 아래 키플랜</b>에 두 자리가 각각 주황 &middot; 파랑 점선으로 표시돼 있습니다. 품번도 <span class="mono">&hellip;-00A</span>=오렌지, <span class="mono">&hellip;-00B</span>=블루로 갈립니다.<br>또 입고 목록의 <b>납기일은 9월 1일</b>인데 입고는 9월 3일입니다. 납기와 현장 반입일이 다른 건이면 문제없습니다.</p>
-    </div>
-  </div>
-</section>
 
 <section class="f1">
   <p class="slabel">배치도 &middot; 1F</p>
