@@ -423,7 +423,8 @@ svg.dims .dg circle.colf, svg.dims .dg rect.colf{fill:var(--f1); opacity:.30; st
 .bigleg .lg.plan{background:var(--muted)} .bigleg .lg.make{background:var(--f1)}
 .bigleg .lg.in{background:var(--alert)} .bigleg .lg.set{background:var(--f2)}
 .bigleg .lg.none{background:var(--sunk)}
-.sumgrid{display:grid; grid-template-columns:repeat(11,1fr); gap:6px; margin-top:20px}
+.sumgrid{display:grid; grid-template-columns:repeat(12,1fr); gap:5px; margin-top:20px}
+@media (max-width:1180px){.sumgrid{grid-template-columns:repeat(6,1fr)}}
 @media (max-width:900px){.sumgrid{grid-template-columns:repeat(6,1fr)}}
 @media (max-width:560px){.sumgrid{grid-template-columns:repeat(3,1fr)}}
 .sc{appearance:none; cursor:pointer; background:var(--surface); border:1px solid var(--hair);
@@ -436,7 +437,7 @@ svg.dims .dg circle.colf, svg.dims .dg rect.colf{fill:var(--f1); opacity:.30; st
 .sc[aria-pressed="true"] .scn,.sc[aria-pressed="true"] .sct{color:var(--paper)}
 .scn{font-family:var(--mono); font-size:21px; font-weight:600; color:var(--ink); line-height:1.1;
   font-variant-numeric:tabular-nums}
-.sct{font-size:11.5px; color:var(--muted); line-height:1.25; word-break:keep-all}
+.sct{font-size:11px; color:var(--muted); line-height:1.25; word-break:keep-all}
 
 /* 목록 줄의 큰 막대 */
 .prog{display:inline-flex; align-items:center; gap:11px; flex:none}
