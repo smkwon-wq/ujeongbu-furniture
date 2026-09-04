@@ -1297,17 +1297,29 @@ window.addEventListener('resize', function(){
   var ST = ["설계 요청", "설계중", "설계 완료", "발주", "생산", "생산완료", "입고예정", "입고완료", "설치중", "설치 완료"];
   var GRP = ["plan", "plan", "plan", "make", "make", "make", "in", "in", "set", "set"];
   var BY_CODE = {"FS 01": {"s": 7, "date": "2026-09-03"}, "FS 02": {"s": 7, "date": "2026-09-03"}, "FS 06": {"s": 7, "date": "2026-09-03"}, "FS 26": {"s": 7, "date": "2026-09-03"}, "FS 28": {"s": 7, "date": "2026-09-03"}, "FS 21": {"s": 3, "date": "2026-08-21"}, "FS 22": {"s": 3, "date": "2026-08-24"}, "FS 24": {"s": 3, "date": "2026-09-01"}, "FS 53": {"s": 3, "date": "2026-08-25"}, "FT 11": {"s": 3, "date": "2026-08-27"}, "FT 27": {"s": 3, "date": "2026-09-01"}, "FT 09": {"s": 3, "date": "2026-09-01"}, "FT 55": {"s": 3, "date": "2026-09-01"}, "FT 56": {"s": 3, "date": "2026-09-01"}, "FW 03": {"s": 2, "date": "2026-08-05"}, "FS 57": {"s": 0, "date": "2026-08-07"}, "FS 51": {"s": 0, "date": "2026-08-24"}, "FS 27": {"s": 0, "date": "2026-08-28"}, "FS 04": {"s": 0, "date": "2026-08-28"}, "FS 05": {"s": 0, "date": "2026-08-28"}, "FS 59": {"s": 0, "date": "2026-09-01"}, "FS 60": {"s": 0, "date": "2026-09-01"}, "FT 01": {"s": 0, "date": "2026-09-01"}, "FT 21": {"s": 0, "date": "2026-09-01"}, "FT 51": {"s": 0, "date": "2026-09-01"}, "FS 03": {"s": 0, "date": "2026-09-02"}, "FS 23": {"s": 0, "date": "2026-09-02"}, "FS 25": {"s": 0, "date": "2026-09-02"}, "FS 29": {"s": 0, "date": "2026-09-02"}};
+  var SAME = [["FW 03", "FT 02"]];
   var rows = Array.prototype.slice.call(document.querySelectorAll('#pane-progress .ref-row'));
   var state = {};
-  // «FS 03-1» 은 «FS 03» 을 따라간다 — 한 태스크로 움직이는 것은 한 몸으로 본다
+  // 한 몸으로 보는 것 두 가지
+  //   ① «FS 03-1» 은 «FS 03» 을 따라간다 (접미사)
+  //   ② SAME 에 묶인 것끼리 따라간다 (코드가 달라도 한 태스크로 움직이는 것)
+  function look(k){
+    if (BY_CODE[k]) return BY_CODE[k];
+    var root = k.replace(/[-_]\d+$/, '');
+    if (root !== k && BY_CODE[root]) return BY_CODE[root];
+    for (var i = 0; i < SAME.length; i++) {
+      var g = SAME[i];
+      if (g.indexOf(k) < 0 && g.indexOf(root) < 0) continue;
+      for (var j = 0; j < g.length; j++) {
+        if (BY_CODE[g[j]]) return BY_CODE[g[j]];
+      }
+    }
+    return null;
+  }
   rows.forEach(function(r){
     var c = r.querySelector('.rcode');
     var k = c ? c.textContent.trim() : '';
-    var hit = BY_CODE[k];
-    if (!hit) {
-      var root = k.replace(/[-_]\d+$/, '');
-      if (root !== k) hit = BY_CODE[root];
-    }
+    var hit = look(k);
     if (hit) state[r.id] = hit;
   });
   var filter = 'all';
