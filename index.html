@@ -223,6 +223,10 @@ table.big tr.r2 td.fs{color:var(--f2)}
 .todaytag.soon{background:var(--f1)}
 table.big tr.r3 td.fs{color:#8A5CB8}
 .stage .planimg{width:100%; height:auto; aspect-ratio:2880 / 1620; display:block; background:var(--surface)}
+.mast-upd{font-family:var(--mono); font-size:11.5px; letter-spacing:.04em; color:var(--muted);
+  margin:10px 0 0; display:flex; align-items:center; gap:7px}
+.mast-upd b{font-weight:600; color:var(--ink-2)}
+.mast-upd i{display:inline-block; width:6px; height:6px; border-radius:50%; background:var(--ok); font-style:normal}
 .tab .tin{font-family:var(--mono); font-size:10.5px; font-weight:600; letter-spacing:.03em;
   background:var(--ok); color:#fff; padding:2px 7px; border-radius:2px; margin-left:7px; vertical-align:1px}
 .tab[aria-selected="true"] .tin{background:var(--paper); color:var(--ink)}
@@ -478,6 +482,7 @@ table.big th{word-break:keep-all}
 <p class="mast-proj">의정부 디자인도서관 &middot; 심플라인</p>
 <h1 class="mast-h">가구 진행 &middot; 입고 현황</h1>
 <p class="mast-sub"><b>진행</b> 탭은 가구 72품목이 지금 어디까지 왔는지 보는 곳입니다. <b>날짜 탭</b>은 그 날 들어온 품목의 배치도 위 자리 &middot; 기둥 중심에서의 설치 이격치수 &middot; 도장 사양입니다.</p>
+<p class="mast-upd"><i></i>갱신 <b>2026-09-14 10:16</b></p>
 
 <!-- 다음 입고를 추가하려면 : (1) 아래 .daytabs 안에 tab 버튼 한 줄을 복사해 data-tab 을 day-YYYYMMDD 로 바꾼다  (2) 그 아래 pane.daypane 블록을 통째로 복사해 id 를 같은 day-YYYYMMDD 로 바꾸고 내용만 그 날짜 것으로 갈아끼운다  (3) 탭은 날짜 순서대로 놓는다. 처음 열릴 때 맨 왼쪽 탭이 자동 선택된다. -->
 <div class="tabs daytabs" role="tablist">
