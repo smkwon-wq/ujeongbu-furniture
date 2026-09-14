@@ -2,8 +2,10 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>의정부 도서관 재고확인</title>
 <style>
-:root{--ink:#14181C;--muted:#6B7684;--hair:#E3E6EA;--bg:#fff;--sunk:#F6F7F9;
- --f1:#1F5FA9;--f2:#5C8A2B;--f3:#9A5B1F;--ok:#1B8A4B;--mono:"Consolas","D2Coding",ui-monospace,monospace}
+/* 어두운 바탕. 도면·배치도는 흰 종이 그대로 둔다(그래야 선이 보인다). */
+:root{--ink:#E4E8EC;--muted:#93A0AD;--hair:#2C333B;--bg:#14181C;--sunk:#1C232A;
+ --card:#212A32;--f1:#6BA6EE;--f2:#96CC62;--f3:#E0A45C;--ok:#3ECF8E;
+ --mono:"Consolas","D2Coding",ui-monospace,monospace}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);
  font:15px/1.6 -apple-system,"Segoe UI","Malgun Gothic",sans-serif}
@@ -49,7 +51,7 @@ main{padding:18px}
  display:flex;align-items:center;gap:8px}
 .parthead::after{content:"";flex:1;height:1px;background:var(--hair)}
 /* 부품 도면을 한 장에 모아둔 것 */
-.allw{border-top:1px solid var(--hair);background:#fff}
+.allw{border-top:1px solid var(--hair);background:var(--card)}
 .allh{font-size:12px;color:var(--muted);padding:8px 14px 0}
 .allimg{display:block;width:100%;max-height:420px;object-fit:contain;object-position:center;
  padding:8px 14px 12px;cursor:zoom-in}
@@ -63,7 +65,7 @@ table{width:100%;border-collapse:collapse;font-size:13.5px}
 th,td{padding:8px 10px;border-top:1px solid var(--hair);text-align:left;vertical-align:middle}
 th{font-size:11.5px;color:var(--muted);font-weight:600;letter-spacing:.03em}
 td.n,th.n{text-align:right;font-family:var(--mono)}
-tr.on td{background:#F1FAF4}
+tr.on td{background:#1B3A2C}
 tr.on td.pn{text-decoration:line-through;text-decoration-color:var(--muted)}
 .chk{width:20px;height:20px;accent-color:var(--ok);cursor:pointer}
 .dw{width:46px;height:34px;object-fit:cover;border:1px solid var(--hair);border-radius:4px;cursor:zoom-in;background:#fff}
@@ -71,13 +73,13 @@ tr.on td.pn{text-decoration:line-through;text-decoration-color:var(--muted)}
  border:1px dashed var(--hair);border-radius:4px}
 .tools{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 14px}
 .tools button{appearance:none;font:inherit;font-size:13px;padding:7px 13px;border-radius:8px;
- border:1px solid var(--hair);background:#fff;cursor:pointer}
+ border:1px solid var(--hair);background:var(--card);color:var(--ink);cursor:pointer}
 .tools button:hover{background:var(--sunk)}
 .empty{color:var(--muted);font-size:13px;padding:10px 4px}
 /* 창 크기를 고정한다 — 도면마다 비율이 달라도 화살표가 제자리에 있도록.
    ★ display 는 반드시 [open] 에만 준다. dialog 에 그냥 display:flex 를 주면
      닫아도 브라우저가 감추지 못해 «잔상» 처럼 큰 흰 상자가 남는다. */
-dialog{border:0;border-radius:12px;padding:0;background:#fff;
+dialog{border:0;border-radius:12px;padding:0;background:var(--bg);color:var(--ink);
  width:min(96vw,1500px);height:94vh;max-width:none;max-height:none;overflow:hidden}
 dialog:not([open]){display:none}
 dialog[open]{display:flex;flex-direction:column}
@@ -85,7 +87,7 @@ dialog::backdrop{background:rgba(0,0,0,.6)}
 /* 돋보기 막대 — 위에 고정해 두고 확대한 뒤 끌어서 훑는다 */
 .dbar{flex:none;display:flex;align-items:center;gap:8px;padding:8px 12px;
  border-bottom:1px solid var(--hair);background:var(--sunk)}
-.dbar button{appearance:none;border:1px solid var(--hair);background:#fff;border-radius:7px;
+.dbar button{appearance:none;border:1px solid var(--hair);background:var(--card);border-radius:7px;
  min-width:34px;height:32px;font:600 15px/1 inherit;cursor:pointer;color:var(--ink)}
 .dbar button:hover{background:var(--sunk)}
 .dbar .zlv{font:600 12px var(--mono);color:var(--muted);min-width:46px;text-align:center}
