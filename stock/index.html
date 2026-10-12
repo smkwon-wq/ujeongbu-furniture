@@ -90,6 +90,8 @@ main{padding:18px}
 .gtit{font:650 12.5px/1.6 var(--mono)}
 .gsub{color:var(--muted);font-size:12.5px}
 table{width:100%;border-collapse:collapse;font-size:13.5px}
+.wprod{margin:8px 0 2px;border:1px solid var(--line,#ddd);border-radius:10px;overflow:hidden;background:#fff;max-width:760px}
+.wprod img{display:block;width:100%;height:auto;cursor:zoom-in}
 .wgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px;margin:10px 0 4px}
 .wcard{border:1px solid var(--line,#ddd);border-radius:10px;overflow:hidden;background:#fff}
 .wcard.on{outline:3px solid #2e7d4f;outline-offset:-3px}
@@ -241,7 +243,8 @@ function render(){
   h += '<div class="tools">'
      + '<button id="exp">굽기용 내보내기</button>'
      + '<button id="clr">이 층 체크 지움</button></div>';
-  if (f.plan || f.vec){
+  const W = f.id.endsWith('-W');   // [1층 목공] 탭 — 위치(배치도·작은 지도) 없이 제품 이미지 + 목공 도면만 (권 2026-10-12)
+  if ((f.plan || f.vec) && !W){
     h += '<div class="planwrap">'
        + '<div class="pbar"><span class="ph">밀어서 보기 · 번호를 누르면 그 제품이 열립니다</span>'
        + '<button data-z="out">&minus;</button><span class="zlv"></span>'
@@ -254,7 +257,7 @@ function render(){
     h += '</div></div></div>';
   }
   const withMark = f.marks.length;
-  h += '<p class="note">위치 표시 '+withMark+'개 &middot; 제품 '+f.rows.length+'줄'
+  if (!W) h += '<p class="note">위치 표시 '+withMark+'개 &middot; 제품 '+f.rows.length+'줄'
      + (withMark < f.rows.length ? ' — 나머지는 배치도에 위치가 아직 안 찍혀 있습니다' : '') + '</p>';
 
   f.rows.forEach((r, i) => {
@@ -271,7 +274,7 @@ function render(){
        + '</button><div class="panel">';
     // 이 제품 자리 — 작은 지도(그 자리만 4배로). 위치가 안 찍힌 제품은 없다.
     const mk = markOf(f, r.code);
-    if (mk && (f.plan || f.vec)){
+    if (mk && (f.plan || f.vec) && !W){
       const Zm = 4;
       h += '<div class="minimap paper" data-code="'+esc(mk.code)+'">'
          + '<div class="mm" style="width:'+(Zm*100)+'%;left:calc(50% - '+(mk.x*Zm)+'%);'
@@ -293,7 +296,9 @@ function render(){
       h += '<p class="parthead">부품 '+b+'종'+(a?' · 확인 '+a:'')+'</p>';
     }
     // ★ [1층 목공] 탭 (권 2026-10-12) : 부품을 하나씩 열지 말고 «목공 도면을 바로» 보여준다 — 물품과 대조하며 체크
-    if (f.id.endsWith('-W')){
+    if (W){
+      const pimg = r.ref || (r.groups[0] && (r.groups[0].img || r.groups[0].all));
+      if (pimg) h += '<div class="wprod"><img src="'+esc(pimg)+'" alt="'+esc(r.code)+' 제품" loading="lazy" data-zoom="'+esc(pimg)+'" data-cap="'+esc(r.code+' · '+r.name)+'"></div>';
       r.groups.forEach(g => {
         h += '<div class="wgrid">';
         g.parts.forEach((p, pi) => {
