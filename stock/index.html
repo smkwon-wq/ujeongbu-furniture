@@ -269,7 +269,7 @@ function render(){
     const rid = 'row-'+f.id+'-'+i;
     if (r.sec && (i === 0 || f.rows[i-1].sec !== r.sec)) {
       const n = f.rows.filter(x => x.sec === r.sec).length;
-      h += '<div class="sech">'+esc(r.sec)+' <span>'+n+'장</span></div>';
+      h += '<div class="sech">'+esc(r.sec)+' <span>'+n+(f.id === 'STONE' ? '장' : '제품')+'</span></div>';   // 대리석은 한 줄 = 한 장
     }
     h += '<div class="row'+(OPEN.has(rid)?' open':'')+'" id="'+rid+'">'
        + '<button class="rhead" data-i="'+i+'">'
