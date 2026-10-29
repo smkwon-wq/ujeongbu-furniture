@@ -218,7 +218,7 @@ function markOf(f, code){ return f.marks.find(k => NC(k.code) === NC(code)); }
 const ZMAX = 8;
 let PZ = window.innerWidth < 760 ? 3 : 1, PFX = 0.5, PFY = 0.5, PFL = null;
 // ★ 폰 멈춤 대책 (권 2026-10-29) : 도면 원본은 한 장 펼치면 평균 67MB·최대 311MB → 목록엔 작은 그림, 확대 창만 원본
-const THUMB = false;
+const THUMB = true;
 function th(u, sz){ return (THUMB && u && /^도면JPG\//.test(u)) ? 'thumb/' + sz + '/' + u : u; }
 function zoomPlan(m, z, fx, fy){
   const cv = m.querySelector('.canvas'), st = m.querySelector('.stage');
