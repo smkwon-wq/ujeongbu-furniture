@@ -78,6 +78,8 @@ const sun = new THREE.DirectionalLight(0xffffff, 0.55); sun.position.set(9000, 1
 Object.assign(sun.shadow.camera, {left: -9000, right: 9000, top: 9000, bottom: -9000, far: 40000}); sun.shadow.bias = -0.0015; sun.shadow.normalBias = 4; scene.add(sun);
 const floor = new THREE.Mesh(new THREE.PlaneGeometry(40000, 40000), new THREE.ShadowMaterial({opacity: 0.12})); floor.rotation.x = -Math.PI / 2; floor.receiveShadow = true; scene.add(floor);
 const controls = new THREE.OrbitControls(camera, renderer.domElement);
+// ★ 확대 폭 (권 2026-10-29 «좀 크게크게 · 빠르게») — 휠 한 칸 1.25 배 → 1.6 배, 버튼 1.5 → 2 배, 3D 회전 화면 휠 속도 2.5 배
+const ZW = 1.6, ZB = 2; controls.zoomSpeed = 2.5;
 const C = [3300, 1200, 3200];                         // 바라볼 곳 (ㄱ자 안쪽)
 controls.target.set(...C); camera.position.set(C[0] + 9000, 6500, C[2] + 9000); controls.update();
 // 건물 기둥 (참고)
@@ -179,8 +181,8 @@ function dFit(){ const w = dwrap.clientWidth, h = dwrap.clientHeight, iw = dimg.
 function dZoom(f, cx, cy){ const ns = Math.min(DZ.min * 16, Math.max(DZ.min, DZ.s * f)), k = ns / DZ.s; DZ.x = cx - (cx - DZ.x) * k; DZ.y = cy - (cy - DZ.y) * k; DZ.s = ns; if (ns === DZ.min) return dFit(); dApply(); }
 dimg.addEventListener('load', dFit);
 const dc = () => [dwrap.clientWidth / 2, dwrap.clientHeight / 2];
-document.getElementById('dzi').onclick = () => dZoom(1.5, ...dc()); document.getElementById('dzo').onclick = () => dZoom(1 / 1.5, ...dc()); document.getElementById('dzf').onclick = dFit;
-dwrap.addEventListener('wheel', e => { e.preventDefault(); const r = dwrap.getBoundingClientRect(); dZoom(e.deltaY < 0 ? 1.25 : 1 / 1.25, e.clientX - r.left, e.clientY - r.top); }, {passive: false});
+document.getElementById('dzi').onclick = () => dZoom(ZB, ...dc()); document.getElementById('dzo').onclick = () => dZoom(1 / ZB, ...dc()); document.getElementById('dzf').onclick = dFit;
+dwrap.addEventListener('wheel', e => { e.preventDefault(); const r = dwrap.getBoundingClientRect(); dZoom(e.deltaY < 0 ? ZW : 1 / ZW, e.clientX - r.left, e.clientY - r.top); }, {passive: false});
 const DP = new Map(); let dpinch = 0;
 dwrap.addEventListener('pointerdown', e => { dmoved = false; dwrap.setPointerCapture(e.pointerId); DP.set(e.pointerId, {x: e.clientX, y: e.clientY}); if (DP.size === 2) { const [a, b] = [...DP.values()]; dpinch = Math.hypot(a.x - b.x, a.y - b.y); } });
 dwrap.addEventListener('pointermove', e => {
@@ -237,7 +239,7 @@ function zoomOv(f, cx, cy){
   OZ.z = nz; OZ.u0 = px - cx / W / nz; OZ.v0 = py - cy / H / nz; clampOZ(); applyOZ();
 }
 const OP = new Map(); let opinch = 0;
-renderer.domElement.addEventListener('wheel', e => { if (!OV) return; e.preventDefault(); const r = view.getBoundingClientRect(); zoomOv(e.deltaY < 0 ? 1.25 : 1 / 1.25, e.clientX - r.left, e.clientY - r.top); }, {passive: false});
+renderer.domElement.addEventListener('wheel', e => { if (!OV) return; e.preventDefault(); const r = view.getBoundingClientRect(); zoomOv(e.deltaY < 0 ? ZW : 1 / ZW, e.clientX - r.left, e.clientY - r.top); }, {passive: false});
 renderer.domElement.addEventListener('pointerdown', e => { if (!OV) return; OP.set(e.pointerId, {x: e.clientX, y: e.clientY}); if (OP.size === 2) { const [a, b] = [...OP.values()]; opinch = Math.hypot(a.x - b.x, a.y - b.y); } });
 renderer.domElement.addEventListener('pointermove', e => {
   if (!OV || !OP.has(e.pointerId)) return; const pv = OP.get(e.pointerId), r = view.getBoundingClientRect();
